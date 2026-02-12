@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Be My Valentine 💖</title>
 
 <style>
@@ -12,21 +12,18 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  -webkit-tap-highlight-color: transparent;
 }
 
 body{
   font-family:'Poppins',sans-serif;
-  min-height:100dvh;
+  height:100vh;
   overflow:hidden;
   background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#ffc3a0,#ffdde1);
   background-size:400% 400%;
   animation:gradientMove 12s ease infinite;
-  position:relative;
-  padding: env(safe-area-inset-top) 
-           env(safe-area-inset-right) 
-           env(safe-area-inset-bottom) 
-           env(safe-area-inset-left);
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 @keyframes gradientMove{
@@ -35,24 +32,6 @@ body{
 100%{background-position:0% 50%;}
 }
 
-/* Floating Photos */
-.floating-photo{
-  position:absolute;
-  width:90px;
-  height:150px;
-  border-radius:12px;
-  object-fit:cover;
-  box-shadow:0 8px 15px rgba(0,0,0,0.25);
-  animation:floatPhoto 6s ease-in-out infinite;
-  cursor:pointer;
-}
-
-@keyframes floatPhoto{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-10px);}
-}
-
-/* Pages */
 .page{
   position:absolute;
   width:100%;
@@ -63,10 +42,10 @@ body{
   align-items:center;
   text-align:center;
   padding:20px;
+  color:white;
   opacity:0;
   transform:translateX(100%);
   transition:0.6s ease;
-  color:white;
 }
 
 .page.active{
@@ -76,48 +55,18 @@ body{
 
 h1{
   font-family:'Pacifico',cursive;
-  font-size:clamp(1.3rem, 4vw, 1.9rem);
-  margin-bottom:18px;
-  padding:0 10px;
-}
-
-/* Arrow */
-.arrow{
   font-size:1.8rem;
-  animation:bounceArrow 1.2s infinite;
-  margin-bottom:8px;
+  margin-bottom:20px;
 }
 
-@keyframes bounceArrow{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(8px);}
-}
-
-.arrow-text{
-  font-size:0.9rem;
-  margin-bottom:5px;
-  animation:fadeBlink 1.5s infinite;
-}
-
-@keyframes fadeBlink{
-0%,100%{opacity:1;}
-50%{opacity:0.4;}
-}
-
-/* Media Box */
 .media-box{
-  width:90%;
-  max-width:320px;
-  aspect-ratio:1/1;
+  width:280px;
+  height:280px;
   background:white;
   border-radius:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.25);
   overflow:hidden;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  transition:0.4s ease;
-  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+  margin-bottom:20px;
 }
 
 .media-box img,
@@ -125,48 +74,23 @@ h1{
   width:100%;
   height:100%;
   object-fit:cover;
-  display:block;
 }
 
-/* Locked buttons */
-.locked{
-  opacity:0.4;
-  pointer-events:none;
-  filter:blur(2px);
-  transition:0.4s ease;
-}
-
-/* Glow */
-.memory-lock{
-  animation:glowPulse 2s infinite;
-}
-
-@keyframes glowPulse{
-0%{box-shadow:0 0 10px rgba(255,255,255,0.6);}
-50%{box-shadow:0 0 20px rgba(255,255,255,1);}
-100%{box-shadow:0 0 10px rgba(255,255,255,0.6);}
-}
-
-/* Buttons */
 .buttons{
   display:flex;
-  flex-direction:column;
-  gap:12px;
-  margin-top:22px;
-  width:85%;
-  max-width:260px;
-  align-items:center;
-  position:relative;
+  gap:20px;
+  width:300px;
+  justify-content:center;
 }
 
 button{
-  width:100%;
+  flex:1;
   padding:12px;
   border:none;
   border-radius:30px;
-  font-size:clamp(0.9rem,3.5vw,1rem);
+  font-size:1rem;
   cursor:pointer;
-  transition:0.3s;
+  transition:0.3s ease;
 }
 
 .yes{
@@ -177,150 +101,102 @@ button{
 .no{
   background:white;
   color:#ff4d6d;
-  position:absolute;
+  position:fixed;
+  z-index:999;
 }
 
 button:active{
   transform:scale(0.95);
 }
 
-/* Final */
-.final{
-  font-size:clamp(1.5rem,5vw,2.2rem);
-  animation:pulse 1.2s infinite;
+/* Final Card */
+.card{
+  background:white;
+  color:#ff4d6d;
+  padding:30px;
+  border-radius:20px;
+  width:90%;
+  max-width:350px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  animation:pulse 1.5s infinite;
 }
 
 @keyframes pulse{
 0%{transform:scale(1);}
-50%{transform:scale(1.1);}
+50%{transform:scale(1.05);}
 100%{transform:scale(1);}
-}
-
-/* Cursor Hearts (Desktop only) */
-.cursor-heart{
-  position:fixed;
-  font-size:16px;
-  pointer-events:none;
-  animation:fadeUp 1s forwards;
-}
-
-@keyframes fadeUp{
-to{opacity:0;transform:translateY(-30px);}
-}
-
-@media (max-width:380px){
-  .floating-photo{
-    width:70px;
-    height:110px;
-  }
-  .media-box{
-    max-width:280px;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Floating Photos -->
-<img src="assets/img1.jpeg" class="floating-photo" style="top:10%;left:5%;" onclick="unlockLove()">
-<img src="assets/img2.jpeg" class="floating-photo" style="top:25%;left:75%;" onclick="unlockLove()">
-<img src="assets/imgWannaCute.jpeg" class="floating-photo" style="top:70%;left:10%;" onclick="unlockLove()">
-<img src="assets/img4.jpeg" class="floating-photo" style="top:70%;left:65%;" onclick="unlockLove()">
-<img src="assets/fire.jpeg" class="floating-photo" style="top:50%;left:20%;" onclick="unlockLove()">
-<img src="assets/imgCafe.jpeg" class="floating-photo" style="top:60%;left:80%;" onclick="unlockLove()">
-
-<!-- Music -->
 <audio id="bgMusic" loop>
   <source src="usingAudio.mp3" type="audio/mpeg">
 </audio>
 
 <!-- PAGE 1 -->
 <div class="page active" id="page1">
-<h1>a smile worth dying... 💕</h1>
-<div class="arrow-text" id="arrowText">click here CHAUHAN SAAB! ✨</div>
-<div class="arrow" id="arrow">⬇️</div>
-
-<div class="media-box memory-lock" id="memoryBox" onclick="unlockLove()">
-<img src="assets/imgMain.jpeg" id="mainImg">
+<h1>Will you be mine forever? 💕</h1>
+<div class="media-box">
+<img src="img1.jpg">
 </div>
-
-<div class="buttons locked" id="buttons1">
-<button class="yes" onclick="nextPage(2)">Maybe 👀</button>
-<button class="no" onmouseover="run(this)" ontouchstart="run(this)">No 😝</button>
+<div class="buttons">
+<button class="yes" onclick="nextPage(2)">Yes 💖</button>
+<button class="no" onmouseover="run(this)">No 😝</button>
 </div>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page" id="page2">
-<h1>If I call you mine… will you smile forever? 😊</h1>
+<h1>Are you really sure? 😳</h1>
 <div class="media-box">
-<img src="assets/img6.jpeg">
-</div>
-<div class="media-box">
-<video src="assets/shortVid1.mp4" autoplay muted loop playsinline></video>
+<img src="img2.jpg">
 </div>
 <div class="buttons">
-<button class="yes" onclick="nextPage(3)">Okay fine 😳</button>
-<button class="no" onmouseover="run(this)" ontouchstart="run(this)">Still no 😤</button>
+<button class="yes" onclick="nextPage(3)">Okay fine 😍</button>
+<button class="no" onmouseover="run(this)">Still No 😤</button>
 </div>
 </div>
 
 <!-- PAGE 3 -->
 <div class="page" id="page3">
-<h1>So… will you be my forever notification? 💘</h1>
+<h1>Last chance… Forever? 💘</h1>
 <div class="media-box">
-<img src="assets/imgMainLast.jpeg">
+<img src="img3.jpg">
 </div>
 <div class="buttons">
 <button class="yes" onclick="finalPage()">YES FOREVER 💖</button>
-<button class="no" onmouseover="run(this)" ontouchstart="run(this)">Catch me 😈</button>
+<button class="no" onmouseover="run(this)">Catch me 😈</button>
 </div>
 </div>
 
-<!-- FINAL -->
+<!-- FINAL CARD -->
 <div class="page" id="final">
-<div class="final">💖 You’re My Favorite Human 💖</div>
-<p>Forever starts now 😌✨</p>
+<div class="card">
+<h2>CONGRATULATIONS</h2>
+<p style="font-size:12px;color:gray;">(TO ME)</p>
+<h3 style="margin:15px 0;">I AM YOUR VALENTINE 💖</h3>
+<p><strong>📍 PLACE :</strong> Don’t worry about it</p>
+<p><strong>⏰ TIME :</strong> I’ll wait whenever you’re ready</p>
+<p><strong>👗 DRESS CODE :</strong> Your smile</p>
+</div>
 </div>
 
 <script>
-let musicStarted=false;
 let yesScale=1;
-let unlocked=false;
+let musicStarted=false;
 
 function startMusic(){
   if(!musicStarted){
-    const music=document.getElementById("bgMusic");
-    music.volume=0.8;
+    let music=document.getElementById("bgMusic");
+    music.volume=0.6;
     music.play().catch(()=>{});
     musicStarted=true;
   }
 }
 
-function unlockLove(){
-  if(unlocked) return;
-  unlocked=true;
-  startMusic();
-
-  document.getElementById("buttons1").classList.remove("locked");
-  document.getElementById("arrow").style.display="none";
-  document.getElementById("arrowText").style.display="none";
-
-  for(let i=0;i<25;i++){
-    let heart=document.createElement("div");
-    heart.innerHTML="💖";
-    heart.style.position="absolute";
-    heart.style.left="50%";
-    heart.style.top="50%";
-    heart.style.transform=`translate(${(Math.random()-0.5)*300}px, ${(Math.random()-0.5)*300}px)`;
-    heart.style.transition="1s ease-out";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),1000);
-  }
-
-  document.getElementById("mainImg").src="assets/imgFlower.jpeg";
-}
+document.addEventListener("click",startMusic);
 
 function nextPage(num){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -333,20 +209,18 @@ function finalPage(){
 }
 
 function run(btn){
-  const padding=20;
-  const maxX=window.innerWidth-btn.offsetWidth-padding;
-  const maxY=window.innerHeight-btn.offsetHeight-padding;
-  btn.style.left=Math.random()*maxX+"px";
-  btn.style.top=Math.random()*maxY+"px";
+  const padding=10;
+  const maxX=window.innerWidth - btn.offsetWidth - padding;
+  const maxY=window.innerHeight - btn.offsetHeight - padding;
 
-  yesScale+=0.1;
+  btn.style.left = Math.random()*maxX + "px";
+  btn.style.top  = Math.random()*maxY + "px";
+
+  yesScale += 0.15;
   document.querySelectorAll('.yes').forEach(y=>{
     y.style.transform=`scale(${yesScale})`;
   });
 }
-
-document.addEventListener("click",startMusic);
-document.addEventListener("touchstart",startMusic,{passive:true});
 </script>
 
 </body>

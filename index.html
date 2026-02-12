@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Be My Valentine 💖</title>
 
 <style>
@@ -25,27 +25,28 @@ body{
   position:relative;
 }
 
+/* Animated Background */
 @keyframes gradientMove{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
 }
 
-/* Floating Photos */
-.floating-photo{
+/* Floating Images */
+.floating{
   position:absolute;
-  width:80px;
-  height:130px;
-  border-radius:12px;
+  width:70px;
+  height:110px;
   object-fit:cover;
-  box-shadow:0 8px 15px rgba(0,0,0,0.25);
-  animation:floatPhoto 6s ease-in-out infinite;
-  cursor:pointer;
+  border-radius:12px;
+  box-shadow:0 6px 12px rgba(0,0,0,0.25);
+  animation:float 6s ease-in-out infinite;
+  z-index:0;
 }
 
-@keyframes floatPhoto{
+@keyframes float{
 0%,100%{transform:translateY(0);}
-50%{transform:translateY(-10px);}
+50%{transform:translateY(-15px);}
 }
 
 /* Pages */
@@ -63,6 +64,7 @@ body{
   opacity:0;
   transform:translateX(100%);
   transition:0.6s ease;
+  z-index:2;
 }
 
 .page.active{
@@ -86,7 +88,6 @@ h1{
   overflow:hidden;
   box-shadow:0 10px 25px rgba(0,0,0,0.25);
   margin-bottom:20px;
-  position:relative;
   cursor:pointer;
 }
 
@@ -123,7 +124,7 @@ button{
 .no{
   background:white;
   color:#ff4d6d;
-  pointer-events:none;   /* 🔥 makes it unclickable */
+  pointer-events:none;
 }
 
 /* Final Card */
@@ -143,29 +144,18 @@ button{
 50%{transform:scale(1.05);}
 100%{transform:scale(1);}
 }
-
-/* Heart Burst */
-.heart-burst{
-  position:fixed;
-  font-size:18px;
-  pointer-events:none;
-  animation:explode 900ms ease-out forwards;
-}
-
-@keyframes explode{
-0%{
-  transform:translate(0,0) scale(0.5);
-  opacity:1;
-}
-100%{
-  transform:translate(var(--x), var(--y)) scale(1.4);
-  opacity:0;
-}
-}
 </style>
 </head>
 
 <body>
+
+<!-- Floating 6 Images -->
+<img src="assets/img1.jpeg" class="floating" style="top:5%; left:5%;">
+<img src="assets/img2.jpeg" class="floating" style="top:20%; right:5%; animation-delay:1s;">
+<img src="assets/img3.jpeg" class="floating" style="bottom:20%; left:8%; animation-delay:2s;">
+<img src="assets/img4.jpeg" class="floating" style="bottom:10%; right:5%; animation-delay:3s;">
+<img src="assets/img5.jpeg" class="floating" style="top:45%; left:2%; animation-delay:4s;">
+<img src="assets/img6.jpeg" class="floating" style="top:55%; right:2%; animation-delay:5s;">
 
 <audio id="bgMusic" loop preload="auto">
   <source src="usingAudio.mp3" type="audio/mpeg">
@@ -175,7 +165,7 @@ button{
 <div class="page active" id="page1">
 <h1>a smile worth dying for 💕</h1>
 
-<div class="media-box" id="memoryBox" onclick="unlockLove()">
+<div class="media-box" onclick="unlockLove()">
 <img src="assets/imgMain.jpeg" id="mainImg">
 </div>
 
@@ -199,7 +189,7 @@ button{
 
 <!-- PAGE 3 -->
 <div class="page" id="page3">
-<h1>Will you go on a Date with me <strong>ChauhanSaab?</strong> 💘</h1>
+<h1>Will you go on a Date with me ChauhanSaab? 💘</h1>
 <div class="media-box">
 <img src="assets/imgMainLast.jpeg">
 </div>
@@ -236,23 +226,6 @@ document.addEventListener("touchstart",playMusic,{once:true});
 function unlockLove(){
   playMusic();
   document.getElementById("mainImg").src="assets/imgFlower.jpeg";
-
-  const rect=document.getElementById("memoryBox").getBoundingClientRect();
-
-  for(let i=0;i<35;i++){
-    const heart=document.createElement("div");
-    heart.className="heart-burst";
-    heart.innerHTML="💖";
-
-    heart.style.left=rect.left+rect.width/2+"px";
-    heart.style.top=rect.top+rect.height/2+"px";
-
-    heart.style.setProperty("--x",(Math.random()-0.5)*300+"px");
-    heart.style.setProperty("--y",(Math.random()-0.5)*300+"px");
-
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),900);
-  }
 }
 
 function nextPage(num){
@@ -266,15 +239,14 @@ function showFinal(){
 }
 
 function run(btn){
-  const padding=20;
-  const maxX=window.innerWidth-btn.offsetWidth-padding;
-  const maxY=window.innerHeight-btn.offsetHeight-padding;
+  const maxX=window.innerWidth-btn.offsetWidth;
+  const maxY=window.innerHeight-btn.offsetHeight;
 
   btn.style.position="fixed";
   btn.style.left=Math.random()*maxX+"px";
   btn.style.top=Math.random()*maxY+"px";
 
-  yesScale+=0.12;
+  yesScale+=0.15;
   document.querySelectorAll('.yes').forEach(y=>{
     y.style.transform=`scale(${yesScale})`;
   });

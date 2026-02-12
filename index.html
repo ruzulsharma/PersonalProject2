@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Be My Valentine 💖</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color: transparent;}
+body{
+  font-family:'Poppins',sans-serif;
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#ffc3a0,#ffdde1);
+  background-size:400% 400%;
+  animation:gradientMove 12s ease infinite;
+  position:relative;
+}
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* Floating Photos */
+.floating-photo{
+  position:absolute;
+  width:120px;
+  height:200px;
+  border-radius:10px;
+  object-fit:cover;
+  box-shadow:0 10px 20px rgba(0,0,0,0.3);
+  animation:floatPhoto 6s ease-in-out infinite;
+  cursor:pointer;
+}
+@keyframes floatPhoto{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-15px);}
+}
+
+/* Pages */
+.page{
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  opacity:0;
+  transform:translateX(100%);
+  transition:0.8s ease;
+  color:white;
+}
+.page.active{
+  opacity:1;
+  transform:translateX(0);
+}
+
+h1{
+  font-family:'Pacifico',cursive;
+  font-size:1.9rem;
+  margin-bottom:20px;
+  padding:0 10px;
+}
+
+/* Arrow */
+.arrow{
+  font-size:2rem;
+  animation:bounceArrow 1.2s infinite;
+  margin-bottom:10px;
+}
+@keyframes bounceArrow{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(10px);}
+}
+.arrow-text{
+  font-size:0.9rem;
+  margin-bottom:5px;
+  animation:fadeBlink 1.5s infinite;
+}
+@keyframes fadeBlink{
+0%,100%{opacity:1;}
+50%{opacity:0.4;}
+}
+
+/* Media Box */
+.media-box{
+  width:90%;
+  max-width:350px;
+  aspect-ratio:1/1;
+  background:white;
+  border-radius:20px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.3);
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transition:0.4s ease;
+  cursor:pointer;
+}
+.media-box img,
+.media-box video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.placeholder{
+  color:#ff4d6d;
+  font-size:1rem;
+  text-align:center;
+  padding:10px;
+}
+
+/* Locked buttons */
+.locked{
+  opacity:0.4;
+  pointer-events:none;
+  filter:blur(2px);
+  transition:0.5s ease;
+}
+
+/* Glow */
+.memory-lock{
+  animation:glowPulse 2s infinite;
+}
+@keyframes glowPulse{
+0%{box-shadow:0 0 10px rgba(255,255,255,0.6);}
+50%{box-shadow:0 0 25px rgba(255,255,255,1);}
+100%{box-shadow:0 0 10px rgba(255,255,255,0.6);}
+}
+.unlock{
+  animation:zoomIn 0.6s ease forwards;
+}
+
+/* Buttons */
+.buttons{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  margin-top:25px;
+  width:80%;
+  max-width:280px;
+  align-items:center;
+  position:relative;
+}
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:30px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
+}
+.yes{background:#ff4d6d;color:white;}
+.no{background:white;color:#ff4d6d;position:absolute;}
+button:active{transform:scale(0.95);}
+
+/* Final */
+.final{
+  font-size:2.2rem;
+  animation:pulse 1.2s infinite;
+}
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.1);}
+100%{transform:scale(1);}
+}
+
+/* Cursor Hearts */
+.cursor-heart{
+  position:fixed;
+  font-size:18px;
+  pointer-events:none;
+  animation:fadeUp 1s forwards;
+}
+@keyframes fadeUp{
+to{opacity:0;transform:translateY(-40px);}
+}
+</style>
+</head>
+<body>
+
+<!-- Floating Photos -->
+<img src="assets/img1.jpeg" class="floating-photo" style="top:10%;left:5%;" onclick="unlockLove()">
+<img src="assets/img2.jpeg" class="floating-photo" style="top:25%;left:75%;" onclick="unlockLove()">
+<img src="assets/imgWannaCute.jpeg" class="floating-photo" style="top:70%;left:10%;" onclick="unlockLove()">
+<img src="assets/img4.jpeg" class="floating-photo" style="top:70%;left:65%;" onclick="unlockLove()">
+<img src="assets/fire.jpeg" class="floating-photo" style="top:50%;left:20%;" onclick="unlockLove()">
+<img src="assets/imgCafe.jpeg" class="floating-photo" style="top:60%;left:80%;" onclick="unlockLove()">
+
+<!-- Music -->
+<audio id="bgMusic" loop>
+  <source src="usingAudio.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+<h1>a smile worth dying...  💕</h1>
+<div class="arrow-text" id="arrowText">click here CHAUHAN SAAB! ✨</div>
+<div class="arrow" id="arrow">⬇️</div>
+
+<div class="media-box memory-lock" id="memoryBox" onclick="unlockLove()">
+<img src="assets/imgMain.jpeg" id="mainImg">
+</div>
+
+<div class="buttons locked" id="buttons1">
+<button class="yes" onclick="nextPage(2)">Maybe 👀</button>
+<button class="no" onmouseover="run(this)" ontouchstart="run(this)">No 😝</button>
+</div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+<h1>If I call you mine… will you smile forever? 😊</h1>
+<div class="media-box">
+<img src="assets/img6.jpeg">
+</div>
+<div class="media-box">
+<video src="assets/shortVid1.mp4" autoplay muted loop playsinline onclick="startMusic()"></video>
+</div>
+<div class="buttons">
+<button class="yes" onclick="nextPage(3)">Okay fine 😳</button>
+<button class="no" onmouseover="run(this)" ontouchstart="run(this)">Still no 😤</button>
+</div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+<h1>So… will you be my forever notification? 💘</h1>
+<div class="media-box">
+<img src="assets/imgMainLast.jpeg">
+</div>
+<div class="buttons">
+<button class="yes" onclick="finalPage()">YES FOREVER 💖</button>
+<button class="no" onmouseover="run(this)" ontouchstart="run(this)">Catch me 😈</button>
+</div>
+</div>
+
+<!-- FINAL PAGE -->
+<div class="page" id="final">
+<div class="final">💖 You’re My Favorite Human 💖</div>
+<p>Forever starts now 😌✨</p>
+</div>
+
+<script>
+let musicStarted=false;
+let yesScale=1;
+let unlocked=false;
+
+// Play music once on first interaction
+function startMusic(){
+  if(!musicStarted){
+    const music=document.getElementById("bgMusic");
+    music.volume=0.8;
+    music.play().catch(()=>{});
+    musicStarted=true;
+  }
+}
+
+// Unlock first page buttons and replace placeholder image
+function unlockLove(){
+  if(unlocked) return;
+  unlocked = true;
+
+  startMusic();
+
+  const memoryBox = document.getElementById("memoryBox");
+  memoryBox.classList.add("unlock");
+
+  // Unlock buttons
+  const buttons = document.getElementById("buttons1");
+  buttons.classList.remove("locked");
+
+  document.getElementById("arrow").style.display = "none";
+  document.getElementById("arrowText").style.display = "none";
+
+  // Heart burst animation
+  for(let i=0; i<25; i++){
+    let heart = document.createElement("div");
+    heart.innerHTML = "💖";
+    heart.style.position = "absolute";
+    heart.style.left = "50%";
+    heart.style.top = "50%";
+    heart.style.fontSize = "20px";
+    heart.style.pointerEvents = "none";
+    heart.style.transform = `translate(${(Math.random()-0.5)*400}px, ${(Math.random()-0.5)*400}px)`;
+    heart.style.transition = "1s ease-out";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(), 1000);
+  }
+
+  // Replace placeholder image inside memory box
+  const mainImg = document.getElementById("mainImg");
+  mainImg.src = "assets/imgFlower.jpeg"; }
+
+// Page navigation
+function nextPage(num){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page'+num).classList.add('active');
+}
+
+function finalPage(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('final').classList.add('active');
+}
+
+// Run-away "no" button
+function run(btn){
+  const x=Math.random()*(window.innerWidth-btn.offsetWidth);
+  const y=Math.random()*(window.innerHeight-btn.offsetHeight);
+  btn.style.left=x+"px";
+  btn.style.top=y+"px";
+
+  yesScale+=0.1;
+  document.querySelectorAll('.yes').forEach(y=>{
+    y.style.transform=`scale(${yesScale})`;
+  });
+}
+
+// Cursor hearts only on desktop
+if(window.matchMedia("(hover: hover)").matches){
+  document.addEventListener("mousemove", e=>{
+    let heart=document.createElement("div");
+    heart.className="cursor-heart";
+    heart.innerHTML="💖";
+    heart.style.left=e.pageX+"px";
+    heart.style.top=e.pageY+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),1000);
+  });
+}
+
+// Start music on first click/tap anywhere
+document.addEventListener("click", startMusic);
+document.addEventListener("touchstart", startMusic, {passive:true});
+</script>
+
+</body>
+</html>

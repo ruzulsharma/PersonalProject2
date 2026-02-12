@@ -125,6 +125,29 @@ button{
   color:#ff4d6d;
 }
 
+  /* Arrow */
+.arrow{
+  font-size:1.8rem;
+  animation:bounceArrow 1.2s infinite;
+  margin-bottom:8px;
+}
+
+@keyframes bounceArrow{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(8px);}
+}
+
+.arrow-text{
+  font-size:0.9rem;
+  margin-bottom:5px;
+  animation:fadeBlink 1.5s infinite;
+}
+
+@keyframes fadeBlink{
+0%,100%{opacity:1;}
+50%{opacity:0.4;}
+}
+
 /* Final Card */
 .card{
   background:white;
@@ -164,6 +187,9 @@ button{
 <!-- PAGE 1 -->
 <div class="page active" id="page1">
 <h1>a smile worth dying for 💕</h1>
+<div class="arrow-text" id="arrowText">click here CHAUHAN SAAB! ✨</div>
+<div class="arrow" id="arrow">⬇️</div>
+
 
 <div class="media-box" onclick="unlockLove()">
 <img src="assets/imgMain.jpeg" id="mainImg">
@@ -191,7 +217,7 @@ button{
 
 <!-- PAGE 3 -->
 <div class="page" id="page3">
-<h1>So… will you be my forever notification? 💘</h1>
+<h1>Will you go on a Date with me <strong>ChauhanSaab?</strong>💘</h1>
 
 <div class="media-box">
 <img src="assets/imgMainLast.jpeg">

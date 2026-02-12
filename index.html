@@ -6,7 +6,7 @@
 <title>Be My Valentine 💖</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap');
 
 *{
   margin:0;
@@ -25,7 +25,6 @@ body{
   position:relative;
 }
 
-/* Animated Background */
 @keyframes gradientMove{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
@@ -75,7 +74,20 @@ body{
 h1{
   font-family:'Pacifico',cursive;
   font-size:clamp(1.4rem,4vw,2rem);
-  margin-bottom:20px;
+  margin-bottom:10px;
+}
+
+/* Arrow Text Stronger */
+.arrow-text{
+  font-weight:700;
+  font-size:clamp(1.2rem,4vw,1.5rem);
+  text-shadow:0 0 10px rgba(0,0,0,0.5);
+  margin-bottom:5px;
+}
+
+.arrow{
+  font-size:1.5rem;
+  margin-bottom:15px;
 }
 
 /* Media Box */
@@ -144,12 +156,39 @@ button{
 50%{transform:scale(1.05);}
 100%{transform:scale(1);}
 }
+
+/* Confetti */
+.confetti{
+  position:fixed;
+  width:8px;
+  height:8px;
+  top:-10px;
+  animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+0%{transform:translateY(0) rotate(0deg);}
+100%{transform:translateY(100vh) rotate(720deg);}
+}
+
+/* Heart Burst */
+.heart{
+  position:fixed;
+  font-size:18px;
+  pointer-events:none;
+  animation:explode 900ms ease-out forwards;
+}
+
+@keyframes explode{
+0%{transform:translate(0,0) scale(0.5); opacity:1;}
+100%{transform:translate(var(--x), var(--y)) scale(1.5); opacity:0;}
+}
 </style>
 </head>
 
 <body>
 
-<!-- Floating 6 Images -->
+<!-- Floating Images -->
 <img src="assets/img1.jpeg" class="floating" style="top:5%; left:5%;">
 <img src="assets/img2.jpeg" class="floating" style="top:20%; right:5%; animation-delay:1s;">
 <img src="assets/img3.jpeg" class="floating" style="bottom:20%; left:8%; animation-delay:2s;">
@@ -164,8 +203,8 @@ button{
 <!-- PAGE 1 -->
 <div class="page active" id="page1">
 <h1>A smile worth dying for huh👀</h1>
-<div class="arrow-text" id="arrowText">Chauhan Saabbb??? ✨</div>
-<div class="arrow" id="arrow">⬇️</div>
+<div class="arrow-text" id="arrowText">✨ Chauhan Saabbb??? ✨</div>
+<div class="arrow">⬇️</div>
 
 <div class="media-box" onclick="unlockLove()">
 <img src="assets/imgMain.jpeg" id="mainImg">
@@ -205,7 +244,7 @@ Will you smile forever? 🫶🏻 😊</h1>
 <!-- FINAL -->
 <div class="page" id="final">
 <div class="card">
-<h2>CONGRATULATIONS</h2>
+<h2>CONGRATULATIONS 🎉</h2>
 <p style="font-size:12px;color:gray;">(TO ME)</p>
 <h3 style="margin:15px 0;">I AM YOUR VALENTINE 💖</h3>
 <p><strong>📍 PLACE :</strong> Don’t worry about it</p>
@@ -229,6 +268,22 @@ document.addEventListener("touchstart",playMusic,{once:true});
 function unlockLove(){
   playMusic();
   document.getElementById("mainImg").src="assets/imgFlower.jpeg";
+  heartBurst();
+}
+
+function heartBurst(){
+  const rect=document.querySelector(".media-box").getBoundingClientRect();
+  for(let i=0;i<35;i++){
+    const heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="💖";
+    heart.style.left=rect.left+rect.width/2+"px";
+    heart.style.top=rect.top+rect.height/2+"px";
+    heart.style.setProperty("--x",(Math.random()-0.5)*300+"px");
+    heart.style.setProperty("--y",(Math.random()-0.5)*300+"px");
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),900);
+  }
 }
 
 function nextPage(num){
@@ -239,6 +294,18 @@ function nextPage(num){
 function showFinal(){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('final').classList.add('active');
+  launchConfetti();
+}
+
+function launchConfetti(){
+  for(let i=0;i<120;i++){
+    const conf=document.createElement("div");
+    conf.classList.add("confetti");
+    conf.style.left=Math.random()*100+"vw";
+    conf.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
+    document.body.appendChild(conf);
+    setTimeout(()=>conf.remove(),3000);
+  }
 }
 
 function run(btn){
